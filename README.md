@@ -18,7 +18,7 @@ folders = [r"C:\precip",
            r"C:\SSN",
            r"C:\SSS"]
 ```
--for each folder specified, specify the file extension
+- for each folder specified, specify the file extension
 ```python
 extensions = ['*.dat', '*.zip', '*.dat', '*.dat', '*.dat']
 ```
