@@ -10,7 +10,7 @@ stationID = "GL-ZaF"
 ```python
 passphrase = "p4ssw0rd"
 ```
-- specify the path of the files to upload
+- specify the list of folders where data files to upload are
 ```python
 folders = [r"C:\precip",
            r"C:\EC",
@@ -18,7 +18,7 @@ folders = [r"C:\precip",
            r"C:\SSN",
            r"C:\SSS"]
 ```
-- for each folder specified, specify the file extension
+- for each folder from the previous variable, specify the file extension
 ```python
 extensions = ['*.dat', '*.zip', '*.dat', '*.dat', '*.dat']
 ```
