@@ -34,29 +34,28 @@ folders = [r"C:\precip",
            r"C:\SSN",
            r"C:\SSS"]
 
-#list of extensions
+#list of extensions for each folder
 extensions = ['*.dat', '*.zip', '*.dat', '*.dat', '*.dat']
 #-------------------------------------------------------------------------------------------------------------------
 #open a log file
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s> %(message)s',
-                    datefmt='%Y.%m.%d %H:%M:%S',
-                    handlers=[logging.FileHandler('uploadETC.log', mode='w'), logging.StreamHandler()] )
-
+                    handlers=[logging.FileHandler('uploadETC.log', mode='w'), logging.StreamHandler()],
+                    force=True)
 #-------------------------------------------------------------------------------------------------------------------
 #loop over all folders
 for index, folder in enumerate(folders):
     #write current directory on screen
-    print(' ---------------------------\n   I will search for files here:   ' + folder + '\n ---------------------------')
+    logging.info(' --- I will search for files here: ' + folder + ' ---')
     
     # Find all files in that folder 
     file_list = glob(os.path.join(folder, extensions[index]))
     
     #loop over all files
-    for file in file_list[5:]:
+    for file in file_list[0:5]:
         basename = os.path.basename(file)
         #write current filename on the screen
-        print(basename)                                                      
+        logging.info(basename)                                                      
         
         #calculate the checksum of the current file
         fid = open(file,'rb')
@@ -64,10 +63,11 @@ for index, folder in enumerate(folders):
         fid.seek(0)
         
         #write checksum of current file on the screen
-        print(checksum)
+        logging.info(checksum)
         
         #generate full url for current file
         url = 'https://' + stationID + ':' + passphrase + '@data.icos-cp.eu/upload/etc/' + checksum + '/' + basename
+        #url = 'https://test@data.icos-cp.eu/upload/etc/foobar/blabla.txt'
         
         #write full url for current file on screen
         logging.info(url)
@@ -75,13 +75,11 @@ for index, folder in enumerate(folders):
         # upload (put) current file to server
         result = requests.put(url, data = fid)
         
-        if ~result.ok:
-            logging.info(result.text)
+        logging.info(result.text)
         
         #close the file
         fid.close()
-        print('\n ---------------------------\n')
+        logging.info('---------------------------')
 
 logging.shutdown()        
-print(' ---------------------------\n   Script ended\n ---------------------------')
-
+print(' --- Script ended ---')
