@@ -52,7 +52,7 @@ for index, folder in enumerate(folders):
     file_list = glob(os.path.join(folder, extensions[index]))
     
     #loop over all files
-    for file in file_list[0:5]:
+    for file in file_list:
         basename = os.path.basename(file)
         #write current filename on the screen
         logging.info(basename)                                                      
@@ -67,7 +67,6 @@ for index, folder in enumerate(folders):
         
         #generate full url for current file
         url = 'https://' + stationID + ':' + passphrase + '@data.icos-cp.eu/upload/etc/' + checksum + '/' + basename
-        #url = 'https://test@data.icos-cp.eu/upload/etc/foobar/blabla.txt'
         
         #write full url for current file on screen
         logging.info(url)
