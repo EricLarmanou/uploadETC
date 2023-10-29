@@ -4,7 +4,7 @@ Based on instructions found here:
 https://github.com/ICOS-Carbon-Portal/data#simplified-etc-specific-facade-api-for-data-uploads
 
 # Usage
-You can test your script with the credentials of the dummy station (stationID='FA-Lso', pwd='p4ssw0rd')
+For testing purposes one can use fake station FA-Lso and password p4ssw0rd.
 
 - Specify your Station ID
 ```python
