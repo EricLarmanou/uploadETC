@@ -46,9 +46,10 @@ for index, folder in enumerate(folders):
     logging.info(' --- I will search for files here: ' + folder + ' ---')
     
     # Find all files in that folder 
-    file_list = glob(os.path.join(folder, extensions[index]))
+    file_list = sorted(glob(os.path.join(folder, extensions[index])))
     
     #loop over all files
+    NbOk = 0
     for file in file_list:
         basename = os.path.basename(file)
         #write current filename on the screen
@@ -71,11 +72,16 @@ for index, folder in enumerate(folders):
         # upload (put) current file to server
         result = requests.put(url, data = fid)
         
+        if result.ok:
+            NbOk += 1
+        
         logging.info(result.text)
         
         #close the file
         fid.close()
         logging.info('---------------------------')
+    
+    logging.info('{:d}/{:d} files successfully imported.'.format(NbOk, len(file_list)))
 
-logging.shutdown()        
+logging.shutdown()
 print(' --- Script ended ---')
