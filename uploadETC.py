@@ -22,7 +22,7 @@ stationID = "FA-Lso"
 
 # Specify your Passoword here
 # eg:   passphrase="p4ssw0rd"
-passphrase = "p4ssw0rd"
+pwd = "p4ssw0rd"
 
 # specify the mask of the data files
 folders = [r"C:\precip\*.dat'",
@@ -38,46 +38,46 @@ logging.basicConfig(level=logging.INFO,
                     force=True)
 #-------------------------------------------------------------------------------------------------------------------
 #loop over all folders
-for index, path_mask in enumerate(path_masks):
+for path_mask in path_masks:
     #write current directory on screen
     logging.info(' --- Search for files matching: ' + path_mask + ' ---')
-    
-    # Find all files in that folder 
+
+    # Find all files in that folder
     files = sorted(glob(path_mask))
-    
+
     #loop over all files
     NbOk = 0
     for file in files:
         basename = os.path.basename(file)
         #write current filename on the screen
-        logging.info(basename)                                                      
-        
+        logging.info(basename)
+
         #calculate the checksum of the current file
         fid = open(file,'rb')
         checksum = hashlib.md5(fid.read()).hexdigest().upper()
         fid.seek(0)
-        
+
         #write checksum of current file on the screen
         logging.info(checksum)
-        
+
         #generate full url for current file
-        url = 'https://' + stationID + ':' + passphrase + '@data.icos-cp.eu/upload/etc/' + checksum + '/' + basename
-        
+        url = 'https://' + stationID + ':' + pwd + '@data.icos-cp.eu/upload/etc/' + checksum + '/' + basename
+
         #write full url for current file on screen and in log file
         logging.info(url)
-        
+
         # upload (put) current file to server
         result = requests.put(url, data = fid)
-        
+
         if result.ok:
             NbOk += 1
-        
+
         logging.info(result.text)
-        
+
         #close the file
         fid.close()
-        logging.info('---------------------------')
-    
+        logging.info('-------------------------')
+
     logging.info('{:d}/{:d} files successfully imported.'.format(NbOk, len(files)))
 
 logging.shutdown()
