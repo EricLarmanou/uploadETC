@@ -24,15 +24,12 @@ stationID = "FA-Lso"
 # eg:   passphrase="p4ssw0rd"
 passphrase = "p4ssw0rd"
 
-# specify the path of the files
-folders = [r"C:\precip",
-           r"C:\EC",
-           r"C:\met",
-           r"C:\SSN",
-           r"C:\SSS"]
-
-#list of extensions for each folder
-extensions = ['*.dat', '*.zip', '*.dat', '*.dat', '*.dat']
+# specify the mask of the data files
+folders = [r"C:\precip\*.dat'",
+           r"C:\EC\*.zip'",
+           r"C:\met\*.dat'",
+           r"C:\SSN\*.dat'",
+           r"C:\SSS\*.dat'"]
 #-------------------------------------------------------------------------------------------------------------------
 #open a log file
 logging.basicConfig(level=logging.INFO,
@@ -41,16 +38,16 @@ logging.basicConfig(level=logging.INFO,
                     force=True)
 #-------------------------------------------------------------------------------------------------------------------
 #loop over all folders
-for index, folder in enumerate(folders):
+for index, path_mask in enumerate(path_masks):
     #write current directory on screen
-    logging.info(' --- I will search for files here: ' + folder + ' ---')
+    logging.info(' --- Search for files matching: ' + path_mask + ' ---')
     
     # Find all files in that folder 
-    file_list = sorted(glob(os.path.join(folder, extensions[index])))
+    files = sorted(glob(path_mask))
     
     #loop over all files
     NbOk = 0
-    for file in file_list:
+    for file in files:
         basename = os.path.basename(file)
         #write current filename on the screen
         logging.info(basename)                                                      
@@ -66,7 +63,7 @@ for index, folder in enumerate(folders):
         #generate full url for current file
         url = 'https://' + stationID + ':' + passphrase + '@data.icos-cp.eu/upload/etc/' + checksum + '/' + basename
         
-        #write full url for current file on screen
+        #write full url for current file on screen and in log file
         logging.info(url)
         
         # upload (put) current file to server
@@ -81,7 +78,7 @@ for index, folder in enumerate(folders):
         fid.close()
         logging.info('---------------------------')
     
-    logging.info('{:d}/{:d} files successfully imported.'.format(NbOk, len(file_list)))
+    logging.info('{:d}/{:d} files successfully imported.'.format(NbOk, len(files)))
 
 logging.shutdown()
 print(' --- Script ended ---')
