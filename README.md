@@ -8,17 +8,13 @@ stationID = "FA-Lso"
 ```
 - update the password to your site
 ```python
-passphrase = "p4ssw0rd"
+pwd = "p4ssw0rd"
 ```
-- specify the list of folders where data files to upload are
+- specify the mask(s) of the data files to upload
 ```python
-folders = [r"C:\precip",
-           r"C:\EC",
-           r"C:\met",
-           r"C:\SSN",
-           r"C:\SSS"]
-```
-- for each folder from the previous variable, specify the file extension
-```python
-extensions = ['*.dat', '*.zip', '*.dat', '*.dat', '*.dat']
+folders = [r"C:\precip\*.dat",
+           r"C:\EC\*.zip",
+           r"C:\met\*.dat",
+           r"C:\SSN\*.dat",
+           r"C:\SSS\*.dat"]
 ```
