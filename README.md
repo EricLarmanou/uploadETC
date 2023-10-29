@@ -4,7 +4,7 @@ uploadETC is a python script used by PIs to upload data files to the ICOS carbon
 # Usage
 - Specify your Station ID
 ```python
-stationID = "GL-ZaF"
+stationID = "FA-Lso"
 ```
 - update the password to your site
 ```python
