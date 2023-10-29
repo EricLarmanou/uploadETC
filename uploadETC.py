@@ -3,10 +3,7 @@
 Created on Fri Oct 28 13:31:38 2022
 
 @author: Eric Larmanou, Aarhus university, Denmark
-upload data files to the ICOS carbon portal
-converison of the power shell script in python, originl instructions:
-The script goes through ALL files within a certain folder and tries to upload them to ICOS-CP
-following https://github.com/ICOS-Carbon-Portal/data#simplified-etc-specific-facade-api-for-data-uploads
+upload data files to the ICOS carbon portal, based on instructions from https://github.com/ICOS-Carbon-Portal/data#simplified-etc-specific-facade-api-for-data-uploads
 You need to specify station-ID, passphrase, and the folder of the files.
 """
 
@@ -21,7 +18,7 @@ import logging
 
 # Specify your Station ID
 # eg:  station="FA-Lso"
-stationID = "GL-ZaF"
+stationID = "FA-Lso"
 
 # Specify your Passoword here
 # eg:   passphrase="p4ssw0rd"
